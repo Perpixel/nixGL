@@ -19,7 +19,16 @@ let
       GCC version:  gcc version 9.3.0 (Arch Linux 9.3.0-1)
     '';
   });
+
+  versionFile565 = (pkgs.callPackage ./nixGL.nix {
+    nvidiaVersionFile = pkgs.writeText "nvidia-version-565.57" ''
+      NVRM version: NVIDIA UNIX x86_64 Kernel Module  565.57
+      GCC version:  gcc version 9.3.0 (Arch Linux 9.3.0-1)
+    '';
+  });
+
 in
   (with pure; [nixGLIntel nixVulkanNvidia nixGLNvidia nixVulkanIntel])
    ++ (with versionFile440.auto; [nixGLNvidia nixGLDefault nixVulkanNvidia])
    ++ (with versionFile510.auto; [nixGLNvidia nixGLDefault nixVulkanNvidia])
+   ++ (with versionFile565.auto; [nixGLNvidia nixGLDefault nixVulkanNvidia])
